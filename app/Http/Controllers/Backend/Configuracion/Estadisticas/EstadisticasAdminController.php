@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Configuracion\Estadisticas;
 
+use App\Events\UbicacionActualizada;
 use App\Http\Controllers\Controller;
 use App\Models\Informacion;
 use App\Models\ReintentoSms;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class EstadisticasAdminController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth:admin');
+      //  $this->middleware('auth:admin');
     }
 
     public function indexEstadisticaAdmin(){
@@ -52,4 +53,24 @@ class EstadisticasAdminController extends Controller
         return ['success' => 1];
     }
 
+
+
+
+    public function testingEvents()
+    {
+        return view('ejemplo');
+    }
+
+
+    public function actualizarUbicacion(Request $request)
+    {
+        $id_usuario = $request->input('id_usuario');
+        $latitud = $request->input('latitud');
+        $longitud = $request->input('longitud');
+
+        // Emitir el evento
+        event(new UbicacionActualizada($id_usuario, $latitud, $longitud));
+
+        return response()->json(['status' => 'Ubicación actualizada']);
+    }
 }

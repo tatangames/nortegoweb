@@ -52,6 +52,7 @@ Route::middleware('verificarToken')->group(function () {
 
 });
 
+Route::post('app/mensaje', [ApiPrincipalController::class, 'sendMessage']);
 
 
 //

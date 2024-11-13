@@ -161,3 +161,8 @@ Route::post('/admin/soporteactualizaciones/actualizar', [PerfilController::class
 // --- INFORMACION APP ---
 Route::get('/admin/informacion/index', [EstadisticasAdminController::class,'indexInformacion'])->name('admin.informacion.app');
 Route::post('/admin/informacion/bloqueoapp', [EstadisticasAdminController::class,'bloqueoAplicacion']);
+
+
+Route::get('/test', [EstadisticasAdminController::class,'testingEvents']);
+
+

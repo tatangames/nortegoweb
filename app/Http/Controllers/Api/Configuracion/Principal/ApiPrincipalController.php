@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers\Api\Configuracion\Principal;
 
+use App\Events\LocationUpdated;
 use App\Http\Controllers\Controller;
 use App\Models\CategoriaServicio;
-use App\Models\Coordenadas;
 use App\Models\DenunciaBasico;
 use App\Models\DenunciaTalaArbol;
-use App\Models\EstadoBasico;
 use App\Models\Informacion;
-use App\Models\NotaServicioBasico;
 use App\Models\ServicioCatastro;
 use App\Models\Servicios;
 use App\Models\Slider;
 use App\Models\SolicitudTalaArbol;
-use App\Models\TipoServicio;
 use App\Models\Usuario;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -25,7 +22,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use GoogleMaps\GoogleMaps;
-
 
 
 class ApiPrincipalController extends Controller
@@ -752,9 +748,30 @@ class ApiPrincipalController extends Controller
 
     public function loginMotorista(Request $request){
 
+        event(new NewMessage('Hola mundo!'));
         return ['success' => 1];
     }
 
+
+
+    function testingEvents(){
+        // event(new TestingEvent());
+
+        return view('ejemplo');
+    }
+
+
+
+    public function sendMessage(Request $request)
+    {
+
+        $latitude = '14.256452';
+        $longitude = '-89.3256584';
+        $userId = '10';
+
+        broadcast(new LocationUpdated($latitude, $longitude, $userId));
+        return response()->json(['status' => 'Message Sent!']);
+    }
 
 
 
