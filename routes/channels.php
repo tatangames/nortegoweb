@@ -1,7 +1,11 @@
 <?php
 
+use App\Models\Administrador;
 use Illuminate\Support\Facades\Broadcast;
-
+use Illuminate\Support\Facades\Log;
+use Laravel\Prompts\Key;
+use Tymon\JWTAuth\JWT;
+use Tymon\JWTAuth\Facades\JWTAuth;
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -13,10 +17,14 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+
+Broadcast::channel('presence-users', function ($user) {
+    return ['id' => $user->id, 'name' => $user->telefono];
 });
 
-Broadcast::channel('ubicacion.{id_usuario}', function ($id_usuario) {
-    return true;  // Permitir acceso público al canal
-});
+
+
+
+
+
+

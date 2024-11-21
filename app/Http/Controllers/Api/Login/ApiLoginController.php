@@ -76,7 +76,9 @@ class ApiLoginController extends Controller
                     return ['success' => 100];
                 }
 
-
+                if($request->device == 2){ // BLOQUEADO PARA IPHONE
+                    return ['success' => 100];
+                }
 
 
 

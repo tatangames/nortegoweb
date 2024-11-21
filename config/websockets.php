@@ -33,7 +33,7 @@ return [
             'enable_statistics' => true,
         ],
     ],
-
+    'jwt_authentication' => true,
     /*
      * This class is responsible for finding the apps. The default provider
      * will use the apps defined in this config file.
@@ -69,8 +69,8 @@ return [
      * the existing middleware. Or, you can simply stick with this list.
      */
     'middleware' => [
-        'web',
-        Authorize::class,
+        'web', // Para sesiones
+        'auth:api',
     ],
 
     'statistics' => [

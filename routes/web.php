@@ -163,6 +163,7 @@ Route::get('/admin/informacion/index', [EstadisticasAdminController::class,'inde
 Route::post('/admin/informacion/bloqueoapp', [EstadisticasAdminController::class,'bloqueoAplicacion']);
 
 
-Route::get('/test', [EstadisticasAdminController::class,'testingEvents']);
+Route::get('/ejemplo', [EstadisticasAdminController::class,'vistaEjemplo']);
 
 
+Route::get('/chat', [EstadisticasAdminController::class,'vistaChat']);
