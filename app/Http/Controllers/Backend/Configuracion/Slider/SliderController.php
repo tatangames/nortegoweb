@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Backend\Configuracion\Slider;
 
 use App\Http\Controllers\Controller;
+use App\Models\NumeroMotorista;
 use App\Models\Servicios;
 use App\Models\Slider;
 use App\Models\TipoServicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -209,7 +212,107 @@ class SliderController extends Controller
 
 
 
+    //*************************************************************************************************
 
+
+    public function indexNumMotorista()
+    {
+        return view('backend.admin.configuracion.numeromotorista.vistanumeromotorista');
+    }
+
+
+    public function tablaNumMotorista()
+    {
+        $listado = NumeroMotorista::orderBy('numero', 'ASC')->get();
+
+        return view('backend.admin.configuracion.numeromotorista.tablanumeromotorista', compact('listado'));
+    }
+
+    public function nuevoNumMotorista(Request $request)
+    {
+        $rules = array(
+            'numero' => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ['success' => 0];
+        }
+
+        // numero repetido
+        if(NumeroMotorista::where('numero', $request->numero)->first()){
+            return ['success' => 1];
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $registro = new NumeroMotorista();
+            $registro->numero = $request->numero;
+            $registro->save();
+
+            DB::commit();
+            return ['success' => 2];
+        } catch (\Throwable $e) {
+            Log::info("error" . $e);
+            DB::rollback();
+            return ['success' => 99];
+        }
+    }
+
+    public function informacionNumMotorista(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = NumeroMotorista::where('id', $request->id)->first()){
+            return ['success' => 1, 'info' => $info];
+        }else{
+            return ['success' => 2];
+        }
+    }
+
+
+    public function editarNumMotorista(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+            'numero' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        NumeroMotorista::where('id', $request->id)
+            ->update([
+                'numero' => $request->numero,
+            ]);
+
+        return ['success' => 1];
+    }
+
+
+    public function borrarNumMotorista(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        NumeroMotorista::where('id', $request->id)->delete();
+
+        return ['success' => 1];
+    }
 
 
 }

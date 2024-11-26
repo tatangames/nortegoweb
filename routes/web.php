@@ -163,7 +163,11 @@ Route::get('/admin/informacion/index', [EstadisticasAdminController::class,'inde
 Route::post('/admin/informacion/bloqueoapp', [EstadisticasAdminController::class,'bloqueoAplicacion']);
 
 
-Route::get('/ejemplo', [EstadisticasAdminController::class,'vistaEjemplo']);
+// --- NUMERO MOTORISTAS ---
+Route::get('/admin/numeromotorista/index', [SliderController::class,'indexNumMotorista'])->name('admin.numeros.motoristas');
+Route::get('/admin/numeromotorista/tabla', [SliderController::class,'tablaNumMotorista']);
+Route::post('/admin/numeromotorista/nuevo', [SliderController::class, 'nuevoNumMotorista']);
+Route::post('/admin/numeromotorista/informacion', [SliderController::class, 'informacionNumMotorista']);
+Route::post('/admin/numeromotorista/editar', [SliderController::class, 'editarNumMotorista']);
+Route::post('/admin/numeromotorista/borrar', [SliderController::class, 'borrarNumMotorista']);
 
-
-Route::get('/chat', [EstadisticasAdminController::class,'vistaChat']);

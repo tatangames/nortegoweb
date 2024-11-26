@@ -21,6 +21,11 @@ Route::post('app/reintento/telefono', [ApiLoginController::class,'reintentoSMS']
 Route::post('app/verificarcodigo/telefono', [ApiLoginController::class,'verificarCodigo']);
 
 
+// Numeros autorizados para iniciar sesion en aplicacion motorista
+Route::post('app/numeros/motoristas', [ApiLoginController::class,'numerosMotoristas']);
+
+
+
 // ******************* RUTAS CON AUTENTIFICACION **********************
 Route::middleware('verificarToken')->group(function () {
 
@@ -45,17 +50,5 @@ Route::middleware('verificarToken')->group(function () {
 
     // REGISTRAR SERVICIO DE CATASTRO
     Route::post('app/solicitud/catastro', [ApiPrincipalController::class,'registrarSolicitudCatastro']);
-
-
-
-
-
 });
-
-Route::post('app/mensaje', [ApiPrincipalController::class, 'sendMessage']);
-
-
-//
-Route::post('app/motoristas/login', [ApiPrincipalController::class,'loginMotorista']);
-
 
