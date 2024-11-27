@@ -163,7 +163,7 @@ Route::get('/admin/informacion/index', [EstadisticasAdminController::class,'inde
 Route::post('/admin/informacion/bloqueoapp', [EstadisticasAdminController::class,'bloqueoAplicacion']);
 
 
-// --- NUMERO MOTORISTAS ---
+// --- NUMERO MOTORISTAS AUTORIZADOS PARA INICIAR EN LA APP MOTORISTAS Y PERMITIR CAMBIOS CUANDO SEA AUTORIZADO ---
 Route::get('/admin/numeromotorista/index', [SliderController::class,'indexNumMotorista'])->name('admin.numeros.motoristas');
 Route::get('/admin/numeromotorista/tabla', [SliderController::class,'tablaNumMotorista']);
 Route::post('/admin/numeromotorista/nuevo', [SliderController::class, 'nuevoNumMotorista']);

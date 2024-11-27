@@ -14,6 +14,17 @@ return new class extends Migration
         Schema::create('numero_motoristas', function (Blueprint $table) {
             $table->id();
             $table->string('numero', 50)->unique();
+
+            // para que motorista en su app pueda aparecer el boton de editar datos
+            // cuando sea autorizado por administrador
+            $table->boolean('cambios');
+
+            // fecha cuando registro motorista
+            // una vez registrado ya no permitira registrar en firebase con el mismo numero
+            $table->datetimes('fecha_registro')->nullable();
+
+            // bool para ver si esta registrado
+            $table->boolean('registrado');
         });
     }
 

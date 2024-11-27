@@ -28,7 +28,7 @@
 
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Slider</li>
+                    <li class="breadcrumb-item">Motoristas</li>
                     <li class="breadcrumb-item active">Listado</li>
                 </ol>
             </div>

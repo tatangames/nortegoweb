@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Login\ApiMotoristaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Login\ApiLoginController;
@@ -21,8 +22,8 @@ Route::post('app/reintento/telefono', [ApiLoginController::class,'reintentoSMS']
 Route::post('app/verificarcodigo/telefono', [ApiLoginController::class,'verificarCodigo']);
 
 
-// Numeros autorizados para iniciar sesion en aplicacion motorista
-Route::post('app/numeros/motoristas', [ApiLoginController::class,'numerosMotoristas']);
+// verificar si procede a enviar codigo de autentificacion o pasar pantalla de registro
+Route::post('app/verificar/motorista', [ApiMotoristaController::class,'numerosMotoristas']);
 
 
 

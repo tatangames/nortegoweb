@@ -217,7 +217,7 @@ class SliderController extends Controller
 
     public function indexNumMotorista()
     {
-        return view('backend.admin.configuracion.numeromotorista.vistanumeromotorista');
+        return view('backend.admin.configuracion.motoristas.numeromotorista.vistanumeromotorista');
     }
 
 
@@ -225,7 +225,7 @@ class SliderController extends Controller
     {
         $listado = NumeroMotorista::orderBy('numero', 'ASC')->get();
 
-        return view('backend.admin.configuracion.numeromotorista.tablanumeromotorista', compact('listado'));
+        return view('backend.admin.configuracion.motoristas.numeromotorista.tablanumeromotorista', compact('listado'));
     }
 
     public function nuevoNumMotorista(Request $request)

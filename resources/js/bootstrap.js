@@ -29,3 +29,26 @@ window.Echo = new Echo({
 });
 
 
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyDQ0DuSMP4vjWXLecl5Vgxlnv2OiKwV-JA",
+    authDomain: "nortego-41cf5.firebaseapp.com",
+    projectId: "nortego-41cf5",
+    storageBucket: "nortego-41cf5.firebasestorage.app",
+    messagingSenderId: "697812221943",
+    appId: "1:697812221943:web:ab4d9413ed2fa92851f8f2",
+    measurementId: "G-TYNE9S662R"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+

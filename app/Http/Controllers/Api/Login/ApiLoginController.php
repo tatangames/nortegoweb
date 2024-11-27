@@ -360,22 +360,6 @@ class ApiLoginController extends Controller
 
 
 
-    public function numerosMotoristas(Request $request)
-    {
-        $rules = array(
-            'device' => 'required',
-        );
-
-        $validator = Validator::make($request->all(), $rules );
-
-        if ( $validator->fails()){
-            return ['success' => 0];
-        }
-
-        $lista = NumeroMotorista::orderBy('numero', 'ASC')->get();
-
-        return ['success' => 1, 'lista' => $lista];
-    }
 
 
 
