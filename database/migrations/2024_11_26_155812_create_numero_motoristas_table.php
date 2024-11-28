@@ -21,7 +21,7 @@ return new class extends Migration
 
             // fecha cuando registro motorista
             // una vez registrado ya no permitira registrar en firebase con el mismo numero
-            $table->datetimes('fecha_registro')->nullable();
+            $table->date('fecha_registro')->nullable();
 
             // bool para ver si esta registrado
             $table->boolean('registrado');

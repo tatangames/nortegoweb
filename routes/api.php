@@ -24,6 +24,7 @@ Route::post('app/verificarcodigo/telefono', [ApiLoginController::class,'verifica
 
 // verificar si procede a enviar codigo de autentificacion o pasar pantalla de registro
 Route::post('app/verificar/motorista', [ApiMotoristaController::class,'numerosMotoristas']);
+Route::post('app/info/motorista', [ApiMotoristaController::class,'infoMotoristas']);
 
 
 

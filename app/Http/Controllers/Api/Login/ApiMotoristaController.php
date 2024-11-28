@@ -28,4 +28,24 @@ class ApiMotoristaController extends Controller
         return ['success' => 1, 'lista' => $lista];
     }
 
+
+    public function infoMotoristas(Request $request){
+
+        $rules = array(
+            'telefono' => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules );
+
+        if ( $validator->fails()){
+            return ['success' => 0];
+        }
+
+        if($lista = NumeroMotorista::where('numero', $request->telefono)->first()){
+            return ['success' => 1, 'cambios' => $lista->cambios];
+        }else{
+            return ['success' => 2];
+        }
+    }
+
 }

@@ -112,6 +112,36 @@
                                         <input style="color:#191818" type="text" autocomplete="off" id="numero-editar" class="form-control" maxlength="50" />
                                     </div>
 
+
+                                    <div class="form-group">
+                                        <label>Fecha Registrado (Solo para recordatorio)</label>
+                                        <input style="color:#191818" type="date" id="fecha-editar" class="form-control" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Cambios (Permite habilitar boton actualizar datos en Perfil)</label>
+                                        <br>
+                                        <label class="switch" style="margin-top:10px">
+                                            <input type="checkbox" id="toggle-cambios">
+                                            <div class="slider round">
+                                                <span class="on">Activo</span>
+                                                <span class="off">Inactivo</span>
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Registrado (Ya el usuario ya tiene un Perfil en Firebase Creado y puede mostrar Mapa para mandar su ubicación)</label>
+                                        <br>
+                                        <label class="switch" style="margin-top:10px">
+                                            <input type="checkbox" id="toggle-registrado">
+                                            <div class="slider round">
+                                                <span class="on">Activo</span>
+                                                <span class="off">Inactivo</span>
+                                            </div>
+                                        </label>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -211,6 +241,20 @@
                         $('#id-editar').val(id);
                         $('#numero-editar').val(response.data.info.numero);
 
+                        $('#fecha-editar').val(response.data.info.fecha_registro);
+
+                        if(response.data.info.cambios === 1){
+                            $("#toggle-cambios").prop("checked", true);
+                        }else{
+                            $("#toggle-cambios").prop("checked", false);
+                        }
+
+                        if(response.data.info.registrado === 1){
+                            $("#toggle-registrado").prop("checked", true);
+                        }else{
+                            $("#toggle-registrado").prop("checked", false);
+                        }
+
                     }else{
                         toastr.error('Información no encontrada');
                     }
@@ -227,6 +271,15 @@
             var id = document.getElementById('id-editar').value;
             var numero = document.getElementById('numero-editar').value;
 
+            var fecha = document.getElementById('fecha-editar').value;
+
+
+            let t = document.getElementById('toggle-cambios').checked;
+            let toggleCambios = t ? 1 : 0;
+
+            let t2 = document.getElementById('toggle-registrado').checked;
+            let toggleRegistrado = t2 ? 1 : 0;
+
             if(numero === ''){
                 toastr.error('Número es requerido');
                 return
@@ -236,6 +289,9 @@
             var formData = new FormData();
             formData.append('id', id);
             formData.append('numero', numero);
+            formData.append('fecha', fecha);
+            formData.append('togglecambios', toggleCambios);
+            formData.append('toggleregistrado', toggleRegistrado);
 
             axios.post('/admin/numeromotorista/editar', formData, {
             })

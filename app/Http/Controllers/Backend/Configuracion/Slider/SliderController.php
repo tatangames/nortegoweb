@@ -250,6 +250,9 @@ class SliderController extends Controller
         try {
             $registro = new NumeroMotorista();
             $registro->numero = $request->numero;
+            $registro->cambios = 0;
+            $registro->fecha_registro = null;
+            $registro->registrado = 0;
             $registro->save();
 
             DB::commit();
@@ -293,6 +296,9 @@ class SliderController extends Controller
         NumeroMotorista::where('id', $request->id)
             ->update([
                 'numero' => $request->numero,
+                'fecha_registro' => $request->fecha,
+                'cambios' => $request->togglecambios,
+                'registrado' => $request->toggleregistrado,
             ]);
 
         return ['success' => 1];
