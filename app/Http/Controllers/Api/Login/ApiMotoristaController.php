@@ -42,7 +42,9 @@ class ApiMotoristaController extends Controller
         }
 
         if($lista = NumeroMotorista::where('numero', $request->telefono)->first()){
-            return ['success' => 1, 'cambios' => $lista->cambios];
+            return ['success' => 1,
+                'cambios' => $lista->cambios,
+                'registrado' => $lista->registrado];
         }else{
             return ['success' => 2];
         }

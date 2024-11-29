@@ -73,13 +73,13 @@ class ApiLoginController extends Controller
                 $infoData = Informacion::where('id', 1)->first();
 
                 // APLICACION EN DESARROLLO
-                if($infoData->endesarrollo == 1){
+               /* if($infoData->endesarrollo == 1){
                     return ['success' => 100];
                 }
 
-                if($request->device == 2){ // BLOQUEADO PARA IPHONE
+              //  if($request->device == 2){ // BLOQUEADO PARA IPHONE
                     return ['success' => 100];
-                }
+                }*/
 
 
 
