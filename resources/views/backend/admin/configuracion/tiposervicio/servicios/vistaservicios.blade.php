@@ -151,6 +151,7 @@
                                             <option value="2">Tala de Arboles</option>
                                             <option value="3">Denuncia Whatsapp</option>
                                             <option value="4">Catastro</option>
+                                            <option value="5">Recolectores en Vivo</option>
                                         </select>
                                     </div>
 
