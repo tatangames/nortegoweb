@@ -119,12 +119,12 @@ class ApiLoginController extends Controller
 
 
                     // Llamar a la función sendSms
-                    /* $resultadoSMS = $this->sendSms($telefono, $codigo);
+                     $resultadoSMS = $this->sendSms($telefono, $codigo);
 
                      if (!$resultadoSMS['success']) {
                          Log::info("ERROR SMS: " . $resultadoSMS['error']);
                          return ['success' => 2];
-                     }*/
+                     }
 
 
 
@@ -172,12 +172,12 @@ class ApiLoginController extends Controller
 
 
                 // Llamar a la función sendSms
-                //$resultadoSMS = $this->sendSms($telefono, $codigo);
+                $resultadoSMS = $this->sendSms($telefono, $codigo);
 
-                /*if (!$resultadoSMS['success']) {
+                if (!$resultadoSMS['success']) {
                     Log::info("ERROR SMS: " . $resultadoSMS['error']);
                     return ['success' => 2];
-                }*/
+                }
 
 
 
