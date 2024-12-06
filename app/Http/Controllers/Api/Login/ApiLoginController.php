@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Services\TwilioService;
 use Exception;
+use App\Services\TwilioService;
 
 class ApiLoginController extends Controller
 {
@@ -24,17 +24,19 @@ class ApiLoginController extends Controller
     // ES FIJO A EL SALVADOR - EXTENSION +503
     private function sendSms($to, $codigo)
     {
-
         $message = "Tu código para NorteGo es: " . $codigo;
-
         $ext = "+503" . $to;
 
         try {
             $twilio = new TwilioService();
-            $twilio->sendMessage($ext, $message);
+            $result = $twilio->sendMessage($ext, $message);
 
-            return ['success' => true, 'message' => 'Mensaje enviado correctamente'];
-        } catch (Exception $e) {
+            if ($result) {
+                return ['success' => true, 'message' => 'Mensaje enviado correctamente'];
+            } else {
+                return ['success' => false, 'error' => 'No se pudo enviar el mensaje'];
+            }
+        } catch (\Exception $e) {
             return ['success' => false, 'error' => 'No se pudo enviar el mensaje: ' . $e->getMessage()];
         }
     }
@@ -63,10 +65,10 @@ class ApiLoginController extends Controller
             $telefono = str_replace(' ', '', $request->telefono);
 
             // GENERAR CODIGO DE 6 DIGITOS
-            $codigo = '123456';
-            /* for($i = 0; $i < 6; $i++) {
+            $codigo = '';
+             for($i = 0; $i < 6; $i++) {
                  $codigo .= mt_rand(0, 9);
-             }*/
+             }
 
             if($infoUsuario = Usuario::where('telefono', $telefono)->first()){
 
@@ -125,6 +127,7 @@ class ApiLoginController extends Controller
                          Log::info("ERROR SMS: " . $resultadoSMS['error']);
                          return ['success' => 2];
                      }
+
 
 
 

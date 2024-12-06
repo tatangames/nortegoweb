@@ -17,6 +17,10 @@ use App\Http\Controllers\Api\Configuracion\Principal\ApiPrincipalController;
 |
 */
 
+Route::post('app/mensaje', [ApiLoginController::class,'mensaje']);
+
+
+
 Route::post('app/verificacion/telefono', [ApiLoginController::class,'verificacionTelefono']);
 Route::post('app/reintento/telefono', [ApiLoginController::class,'reintentoSMS']);
 Route::post('app/verificarcodigo/telefono', [ApiLoginController::class,'verificarCodigo']);
