@@ -65,10 +65,10 @@ class ApiLoginController extends Controller
             $telefono = str_replace(' ', '', $request->telefono);
 
             // GENERAR CODIGO DE 6 DIGITOS
-            $codigo = '';
-             for($i = 0; $i < 6; $i++) {
+            $codigo = '123456';
+             /*for($i = 0; $i < 6; $i++) {
                  $codigo .= mt_rand(0, 9);
-             }
+             }*/
 
             if($infoUsuario = Usuario::where('telefono', $telefono)->first()){
 
@@ -121,12 +121,12 @@ class ApiLoginController extends Controller
 
 
                     // Llamar a la función sendSms
-                     $resultadoSMS = $this->sendSms($telefono, $codigo);
+                     /*$resultadoSMS = $this->sendSms($telefono, $codigo);
 
                      if (!$resultadoSMS['success']) {
                          Log::info("ERROR SMS: " . $resultadoSMS['error']);
                          return ['success' => 2];
-                     }
+                     }*/
 
 
 
@@ -175,17 +175,16 @@ class ApiLoginController extends Controller
 
 
                 // Llamar a la función sendSms
-                $resultadoSMS = $this->sendSms($telefono, $codigo);
+               /* $resultadoSMS = $this->sendSms($telefono, $codigo);
 
                 if (!$resultadoSMS['success']) {
                     Log::info("ERROR SMS: " . $resultadoSMS['error']);
                     return ['success' => 2];
-                }
+                }*/
 
 
 
                 //******* AQUI SE FINALIZA ENVIO SMS ***********
-
 
                 $detaRe = new ReintentoSms();
                 $detaRe->id_usuarios = $registro->id;
