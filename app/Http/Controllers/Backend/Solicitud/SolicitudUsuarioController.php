@@ -78,7 +78,7 @@ class SolicitudUsuarioController extends Controller
 
         if($infoDenuncia = DenunciaBasico::where('id', $request->id)->first()){
             $infoUsuario = Usuario::where('id', $infoDenuncia->id_usuario)->first();
-            if($infoUsuario->onesignal != null){
+            if($infoUsuario->onesignal != null && $infoDenuncia->visible == 1){
                 $tiNo = "Resolución";
                 $desNo = "La problemática ha sido resuelta";
                 dispatch(new EnviarNotificacion($infoUsuario->onesignal, $tiNo, $desNo));

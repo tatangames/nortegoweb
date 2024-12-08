@@ -17,15 +17,13 @@ use App\Http\Controllers\Api\Configuracion\Principal\ApiPrincipalController;
 |
 */
 
-Route::post('app/mensaje', [ApiLoginController::class,'mensaje']);
-
-
-
+// INICIO DE SESION
 Route::post('app/verificacion/telefono', [ApiLoginController::class,'verificacionTelefono']);
 Route::post('app/reintento/telefono', [ApiLoginController::class,'reintentoSMS']);
 Route::post('app/verificarcodigo/telefono', [ApiLoginController::class,'verificarCodigo']);
 
 
+// RUTAS PARA APP MOTORISTA
 // verificar si procede a enviar codigo de autentificacion o pasar pantalla de registro
 Route::post('app/verificar/motorista', [ApiMotoristaController::class,'numerosMotoristas']);
 Route::post('app/info/motorista', [ApiMotoristaController::class,'infoMotoristas']);

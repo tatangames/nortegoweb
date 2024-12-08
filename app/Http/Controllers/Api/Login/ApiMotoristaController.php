@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Validator;
 class ApiMotoristaController extends Controller
 {
 
-    // verificar si procede a enviar codigo o pasa a pantalla registro
+    // SE DEVUELVE LISTADO DE TELEFONOS PERMITIDOS PARA INICIAR SESION EN APP
+    // PARA MOTORISTAS
     public function numerosMotoristas(Request $request)
     {
         $rules = array(

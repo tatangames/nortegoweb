@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api\Login;
 
 use App\Http\Controllers\Controller;
 use App\Models\ConteoIngresoCodigo;
-use App\Models\Informacion;
-use App\Models\NumeroMotorista;
 use App\Models\ReintentoSms;
 use App\Models\Usuario;
 use Carbon\Carbon;
@@ -70,20 +68,7 @@ class ApiLoginController extends Controller
                  $codigo .= mt_rand(0, 9);
              }*/
 
-            if($infoUsuario = Usuario::where('telefono', $telefono)->first()){
-
-                $infoData = Informacion::where('id', 1)->first();
-
-                // APLICACION EN DESARROLLO
-               /* if($infoData->endesarrollo == 1){
-                    return ['success' => 100];
-                }
-
-              //  if($request->device == 2){ // BLOQUEADO PARA IPHONE
-                    return ['success' => 100];
-                }*/
-
-
+            if($infoUsuario = Usuario::where('telefono', $telefono)->first()) {
 
 
                 // USUARIO BLOQUEADO
@@ -116,19 +101,20 @@ class ApiLoginController extends Controller
                 // YA SE PUEDE REENVIAR SMS Y SE HACE EL REENVIO, SE ACTUALIZA LA FECHA
                 if ($puedeReenviarSMS == 1) {
 
+
+
                     //******* AQUI SE ENVIA SMS ***********
+
                     // Si falla el envio, se hace un return de error
 
 
                     // Llamar a la función sendSms
-                     /*$resultadoSMS = $this->sendSms($telefono, $codigo);
+                    /*$resultadoSMS = $this->sendSms($telefono, $codigo);
 
-                     if (!$resultadoSMS['success']) {
-                         Log::info("ERROR SMS: " . $resultadoSMS['error']);
-                         return ['success' => 2];
-                     }*/
-
-
+                    if (!$resultadoSMS['success']) {
+                        Log::info("ERROR SMS: " . $resultadoSMS['error']);
+                        return ['success' => 2];
+                    }*/
 
 
                     //******* AQUI SE FINALIZA ENVIO SMS ***********
@@ -171,11 +157,9 @@ class ApiLoginController extends Controller
 
 
                 //******* AQUI SE ENVIA SMS ***********
-                // Si falla el envio, se hace un return de error
 
 
-                // Llamar a la función sendSms
-               /* $resultadoSMS = $this->sendSms($telefono, $codigo);
+                /* $resultadoSMS = $this->sendSms($telefono, $codigo);
 
                 if (!$resultadoSMS['success']) {
                     Log::info("ERROR SMS: " . $resultadoSMS['error']);
@@ -205,7 +189,6 @@ class ApiLoginController extends Controller
         }
     }
 
-
     // SOLICITUD DE CODIGO DE CONFIRMACION
     public function reintentoSMS(Request $request){
 
@@ -226,7 +209,6 @@ class ApiLoginController extends Controller
             // EN ANDROID O IPHONE PUEDE VENIR CON ESPACIOS, AQUI SE QUITARAN
             $telefono = str_replace(' ', '', $request->telefono);
 
-
             if($infoUsuario = Usuario::where('telefono', $telefono)->first()){
 
                 // Usuario inactivo
@@ -239,11 +221,8 @@ class ApiLoginController extends Controller
 
                 //******* AQUI SE ENVIA SMS ***********
                 // EL CODIGO NO SE ACTUALIZA EN ESTA PARTE, SOLO ES AL VERIFICAR NUMERO QUE GENERA CODIGO
-                // si falla el envio, se hace un return de error
 
-
-                // Llamar a la función sendSms
-                /*  $resultadoSMS = $this->sendSms($telefono, $infoUsuario->codigo);
+                 /*$resultadoSMS = $this->sendSms($telefono, $infoUsuario->codigo);
 
                   if (!$resultadoSMS['success']) {
                       Log::info("ERROR SMS: " . $resultadoSMS['error']);
@@ -251,6 +230,7 @@ class ApiLoginController extends Controller
                   }*/
 
                 //*************************************
+
 
                 // BITACORA DE REGISTROS, CUANTOS INTENTOS A REALIZADO
 
@@ -359,10 +339,4 @@ class ApiLoginController extends Controller
             return ['success' => 99];
         }
     }
-
-
-
-
-
-
 }
