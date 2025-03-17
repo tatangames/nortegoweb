@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Backend\Configuracion\Slider;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agenda;
 use App\Models\NumeroMotorista;
 use App\Models\Servicios;
 use App\Models\Slider;
-use App\Models\TipoServicio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -319,6 +319,129 @@ class SliderController extends Controller
 
         return ['success' => 1];
     }
+
+
+
+
+
+    //******************* AGENDA *******************************************************
+
+    public function indexAgenda(){
+
+        return view('backend.admin.agenda.vistaagenda');
+    }
+
+
+    public function tablaAgenda(){
+
+        $listado = Agenda::orderBy('posicion', 'ASC')->get();
+
+        return view('backend.admin.agenda.tablaagenda',compact('listado'));
+    }
+
+
+    public function nuevoAgenda(Request $request){
+
+        $regla = array(
+            'nombre' => 'required',
+            'telefono' => 'required',
+        );
+
+        // imagen
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if ($request->hasFile('imagen')) {
+
+            $cadena = Str::random(15);
+            $tiempo = microtime();
+            $union = $cadena . $tiempo;
+            $nombre = str_replace(' ', '_', $union);
+
+            $extension = '.' . $request->imagen->getClientOriginalExtension();
+            $nombreFoto = $nombre . strtolower($extension);
+            $avatar = $request->file('imagen');
+            $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
+
+            if ($upload) {
+
+                if ($info = Agenda::orderBy('posicion', 'DESC')->first()) {
+                    $nuevaPosicion = $info->posicion + 1;
+                } else {
+                    $nuevaPosicion = 1;
+                }
+
+                DB::beginTransaction();
+
+                try {
+                    $registro = new Agenda();
+                    $registro->nombre = $request->nombre;
+                    $registro->telefono = $request->telefono;
+                    $registro->posicion = $nuevaPosicion;
+                    $registro->imagen = $nombreFoto;
+                    $registro->save();
+
+                    DB::commit();
+                    return ['success' => 1];
+                }catch(\Throwable $e){
+                    Log::info("error" . $e);
+                    DB::rollback();
+                    return ['success' => 99];
+                }
+            }
+            else {
+                return ['success' => 99];
+            }
+
+        }else{
+            return ['success' => 99];
+        }
+    }
+
+    public function borrarAgenda(Request $request){
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if(Servicios::where('id', $request->id)->first()){
+
+            Servicios::where('id', $request->id)->delete();
+
+            return ['success' => 1];
+        }else{
+            return ['success' => 2];
+        }
+    }
+
+
+    public function actualizarPosicionAgenda(Request $request){
+
+        $tasks = Agenda::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+
+
+
+
+
+
 
 
 }

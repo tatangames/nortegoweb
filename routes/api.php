@@ -56,3 +56,7 @@ Route::middleware('verificarToken')->group(function () {
     Route::post('app/solicitud/catastro', [ApiPrincipalController::class,'registrarSolicitudCatastro']);
 });
 
+
+// API DATOS PUBLICOS
+Route::get('app/agenda/informacion', [ApiPrincipalController::class,'verAgenda']);
+

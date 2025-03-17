@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Configuracion\Principal;
 
 use App\Events\LocationUpdated;
 use App\Http\Controllers\Controller;
+use App\Models\Agenda;
 use App\Models\CategoriaServicio;
 use App\Models\DenunciaBasico;
 use App\Models\DenunciaTalaArbol;
@@ -678,7 +679,6 @@ class ApiPrincipalController extends Controller
                 DB::rollback();
                 return ['success' => 99];
             }
-
         }else{
             return ['success' => 99];
         }
@@ -761,7 +761,6 @@ class ApiPrincipalController extends Controller
     }
 
 
-
     public function sendMessage(Request $request)
     {
 
@@ -773,6 +772,13 @@ class ApiPrincipalController extends Controller
         return response()->json(['status' => 'Message Sent!']);
     }
 
+
+    public function verAgenda()
+    {
+        $listado = Agenda::orderBy('posicion', 'ASC')->get();
+
+        return ['success' => 1, 'listado' => $listado];
+    }
 
 
 

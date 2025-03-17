@@ -171,3 +171,10 @@ Route::post('/admin/numeromotorista/informacion', [SliderController::class, 'inf
 Route::post('/admin/numeromotorista/editar', [SliderController::class, 'editarNumMotorista']);
 Route::post('/admin/numeromotorista/borrar', [SliderController::class, 'borrarNumMotorista']);
 
+// --- AGENDA ---
+Route::get('/admin/agenda/index', [SliderController::class,'indexAgenda'])->name('admin.agenda.index');
+Route::get('/admin/agenda/tabla', [SliderController::class,'tablaAgenda']);
+Route::post('/admin/agenda/nuevo', [SliderController::class, 'nuevoAgenda']);
+Route::post('/admin/agenda/posicion', [SliderController::class, 'actualizarPosicionAgenda']);
+Route::post('/admin/agenda/borrar', [SliderController::class, 'borrarAgenda']);
+
