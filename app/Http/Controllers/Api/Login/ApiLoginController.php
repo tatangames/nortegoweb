@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Login;
 
 use App\Http\Controllers\Controller;
 use App\Models\ConteoIngresoCodigo;
+use App\Models\Informacion;
 use App\Models\ReintentoSms;
 use App\Models\Usuario;
 use Carbon\Carbon;
@@ -67,6 +68,19 @@ class ApiLoginController extends Controller
              /*for($i = 0; $i < 6; $i++) {
                  $codigo .= mt_rand(0, 9);
              }*/
+
+
+
+            // -------------- BLOQUEO TEMPORAL ------------
+
+            $infoExtra = Informacion::where('id', 1)->first();
+            if($infoExtra->endesarrollo == 1){
+                return ['success' => 100];
+            }
+
+
+            // -------------- END - BLOQUEO TEMPORAL ---------------
+
 
             if($infoUsuario = Usuario::where('telefono', $telefono)->first()) {
 

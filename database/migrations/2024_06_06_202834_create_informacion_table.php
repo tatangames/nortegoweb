@@ -25,8 +25,8 @@ return new class extends Migration
             $table->string('version_android', 50);
             $table->string('version_ios', 50);
 
+            // BLOQUEAR INICIO SI ESTA EN DESARROLLO
             $table->boolean('endesarrollo');
-
 
         });
     }
