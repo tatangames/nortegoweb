@@ -409,9 +409,9 @@ class SliderController extends Controller
 
         if ($validar->fails()){ return ['success' => 0];}
 
-        if(Servicios::where('id', $request->id)->first()){
+        if(Agenda::where('id', $request->id)->first()){
 
-            Servicios::where('id', $request->id)->delete();
+            Agenda::where('id', $request->id)->delete();
 
             return ['success' => 1];
         }else{
